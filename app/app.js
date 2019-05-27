@@ -30,7 +30,7 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
         'Authorization' : "Basic " + encodedString
       }
     }).then(function (data){
-      mainCtrl.token = data.data.token;
+      mainCtrl.token = data.data.access_token;
       getData();
     })
   }
@@ -50,16 +50,16 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
   })
 
 }
-//fetch followers api
+
   function fetchFollowers(){
     var deferred = $q.defer();
-
     $http({
         method :'GET',
-        url :'https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=NASA&count=50',
+        url :'https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=NASA&count=10',
         header: {
           'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
-          'Authorization' :"Bearer "+ mainCtrl.token
+          'Authorization' :"Bearer "+ mainCtrl.token,
+          'Access-Control-Allow-Origin': '*'
         }
       }).then(function (data){
         if(data.data == 'success'){
@@ -71,7 +71,8 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
         return deferred.promise;
 
     }).catch(function (err) {
-     console.log(err);
+      console.log('Exception log');
+      console.log(err);
      throw err;
 });
   }
