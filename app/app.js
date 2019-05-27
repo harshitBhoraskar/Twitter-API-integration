@@ -58,7 +58,6 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
         url :'https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=NASA&count=10',
         header: {
           'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
-          //'Authorization' :"Bearer " + mainCtrl.token
           'Authorization' :"Bearer "+ mainCtrl.token,
           'Access-Control-Allow-Origin': '*'
         }
