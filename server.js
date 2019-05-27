@@ -4,7 +4,6 @@ var app = express();
 
 app.use(cors({ origin: true }));
 app.use(express.static('app')); // myApp will be the same folder name.
-app.options('*',cors())
 app.use(function(req, res, next) {
 res.header('Access-Control-Allow-Origin', '*')
  res.header( "Access-Control-Allow-Methods" , "GET,POST,PUT,DELETE,OPTIONS")
@@ -15,4 +14,4 @@ res.header('Access-Control-Allow-Origin', '*')
 app.get('/', function (req, res,next) {
  res.redirect('/');
 });
-app.listen(8080, () => console.log(`App Running is 8080 port `))
+app.listen(8080, () => console.log('Twitter-API app is listening on port'))
