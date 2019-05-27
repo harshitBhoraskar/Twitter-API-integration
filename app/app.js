@@ -1,16 +1,19 @@
 var myApp = angular.module('myApp',[]);
-var consumerKey = 'IKFVH2PtRx7I0epBJPO5lD4Rz'; // consumer key
-var consumerSecret = 'cx0ZZISYZMAU4W5ZjsTFPkKaW9g7JKdwbzf3WMGnng2LxIUgb8'; // consumer secret
+var consumerKey = 'VQBS0hroJa0MrbQG0wSFoI0H1'; // consumer key
+var consumerSecret = 'afCwcK5tqiciBtN4BSAzoJq5jP5a6Qdjq6X0TlVqtd1RPhlj3l'; // consumer secret
 var toEncodeString = consumerKey+ ':' + consumerSecret; // strings concated
 var encodedString = window.btoa(toEncodeString); // concated string converted to base64
 
 
-myApp.controller('mainController',  [ '$http', '$sce' ,function mainController ($http , $sce){
+myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainController ($http , $sce ,$q){
   var mainCtrl = this;
   mainCtrl.getToken = getToken;
   mainCtrl.init = init();
-  mainCtrl.getData = getData();
+  mainCtrl.getData = getData;
+  mainCtrl.fetchFollowers = fetchFollowers;
   mainCtrl.tweets = [];
+  mainCtrl.tabOne = true;
+  mainCtrl.tabTwo = false;
 
   // this function initialises all the required functions
   function init(){
@@ -27,7 +30,7 @@ myApp.controller('mainController',  [ '$http', '$sce' ,function mainController (
         'Authorization' : "Basic " + encodedString
       }
     }).then(function (data){
-      mainCtrl.token = data.data.token;
+      mainCtrl.token = data.data.access_token;
       getData();
     })
   }
@@ -39,14 +42,41 @@ myApp.controller('mainController',  [ '$http', '$sce' ,function mainController (
       url :'https://cors-anywhere.herokuapp.com/https://publish.twitter.com/oembed?url=https://twitter.com/NASA&count=50',
       header: {
         'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
-        'Authorization' : "Bearer " + mainCtrl.token,
+        'Authorization' : "Bearer " + mainCtrl.token
       }
     }).then(function (data){
       mainCtrl.data = data.data;
       mainCtrl.html = mainCtrl.data.html;
-    })
-  }
+  })
 
+}
+
+  function fetchFollowers(){
+    var deferred = $q.defer();
+    $http({
+        method :'GET',
+        url :'https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=NASA&count=10',
+        header: {
+          'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
+          //'Authorization' :"Bearer " + mainCtrl.token
+          'Authorization' :"Bearer "+ mainCtrl.token,
+          'Access-Control-Allow-Origin': '*'
+        }
+      }).then(function (data){
+        if(data.data == 'success'){
+
+        } else if(data.data.status == 'failure')
+        {
+          deferred.resolve()
+        }
+        return deferred.promise;
+
+    }).catch(function (err) {
+      console.log('Exception log');
+      console.log(err);
+     throw err;
+});
+  }
 }])
 
 // to render HTML received in JSON

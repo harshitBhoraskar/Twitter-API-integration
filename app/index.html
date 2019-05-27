@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
-    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
     <link rel="stylesheet" href="main.css">
 </head>
 <body ng-app="myApp">
@@ -18,9 +18,20 @@
         </ul>
       </div>
     </nav>
-    <!-- Tweets replicated  -->
+
+    <!-- <ul class="nav nav-tabs card-header-tabs tab-switch">
+      <li class="nav-item" ng-class="{'active' : 'mainCtrl.tabOne'}"><a class="nav-link">Tweets</a></li>
+      <li class=" nav-item " ng-class="{'active' : 'mainCtrl.tabTwo'}"><a>Followers</a></li>
+    </ul> -->
+    <ul class="nav nav-tabs tabs">
+      <li class="active"><a data-toggle="tab" ng-click="mainCtrl.tabOne = true; mainCtrl.tabTwo = false;">Tweets</a></li>
+      <li><a data-toggle="tab" ng-click="mainCtrl.tabOne = false; mainCtrl.tabTwo = true; mainCtrl.fetchFollowers()">Followers</a></li>
+    </ul>
+
+    <!-- Tweets  -->
     <div class="tweet-body col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-xs-10 col-xs-offset-1" id="txt" ng-bind-html="mainCtrl.html | trustHtml">
     </div>
   </div>
 </body>
 </html>
+<script src="app.js"></script>
