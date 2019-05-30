@@ -8,8 +8,8 @@ var encodedString = window.btoa(toEncodeString); // concated string converted to
 myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainController ($http , $sce ,$q){
   var mainCtrl = this;
   mainCtrl.getToken = getToken;
-  mainCtrl.init = init();
   mainCtrl.getData = getData;
+  mainCtrl.init = init();
   mainCtrl.fetchFollowers = fetchFollowers;
   mainCtrl.tweets = [];
   mainCtrl.tabOne = true;
@@ -18,6 +18,8 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
   // this function initialises all the required functions
   function init(){
     mainCtrl.getToken();
+    mainCtrl.getData();
+
   }
 
 // Function to get bearer token using Consumer Key
@@ -31,40 +33,38 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
       }
     }).then(function (data){
       mainCtrl.token = data.data.access_token;
-      getData();
     })
   }
 
 // fetch tweets
-  function getData(){
-    $http({
-      method :'GET',
-      url :'https://cors-anywhere.herokuapp.com/https://publish.twitter.com/oembed?url=https://twitter.com/NASA&count=50',
-      header: {
-        'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
-        'Authorization' : "Bearer " + mainCtrl.token
-      }
-    }).then(function (data){
-      mainCtrl.data = data.data;
-      mainCtrl.html = mainCtrl.data.html;
+  function getData() {
+  $http({
+    method : 'GET',
+    url : 'http://localhost:8080/getTweets'
+    ,
+    header: {
+          'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8'
+        }
+  }).then(function (data){
+    mainCtrl.tweets = data.data;
   })
-
 }
 
   function fetchFollowers(){
     var deferred = $q.defer();
     $http({
         method :'GET',
-        url :'https://api.twitter.com/1.1/followers/ids.json?cursor=-1&screen_name=NASA&count=10',
+        url  :'http://localhost:8080/twitterFollowers',
         header: {
           'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
           'Authorization' :"Bearer "+ mainCtrl.token,
           'Access-Control-Allow-Origin': '*'
         }
       }).then(function (data){
-        if(data.data == 'success'){
+        if(data.status == 200){
+          mainCtrl.followers = data.data.users;
 
-        } else if(data.data.status == 'failure')
+        } else if(data.status == 'failure')
         {
           deferred.resolve()
         }
@@ -84,3 +84,7 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
     return $sce.trustAsHtml(html)
   }
 })
+
+myApp.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);

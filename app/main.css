@@ -1,4 +1,11 @@
-.tweet-body{
+.cards{
+  display: inline-block;
+  padding : 10px;
+  height : 120px;
+  border : 1px solid grey;
+}
+.tweets-body{
+  display: inline-block;
 }
 
 .heading{
@@ -9,4 +16,56 @@
 .center{
   width:100%;
   padding: 5px;
+}
+
+.profile-image{
+  height : 70px;
+}
+
+.description{
+  padding : 5px;
+  /* float: ; */
+}
+
+.pull-left{
+  float : left;
+}
+.pull-right{
+  float : right;
+}
+
+.word-break{
+  word-wrap: break-word;
+}
+
+.text-center{
+  text-align : center;
+}
+
+.verified{
+  width: 18px;
+}
+.user-name{
+  color : grey
+}
+
+a{
+  cursor: pointer;
+}
+
+.logo{
+  width:50px;
+}
+
+.tweet{
+  display: inline !important;
+}
+
+body{
+  background-color :#E6ECF0;
+}
+
+.tweet-body{
+  background-color : white;
+
 }
