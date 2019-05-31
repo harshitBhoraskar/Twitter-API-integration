@@ -3,9 +3,9 @@ const cors = require('cors');
 var app = express();
 var Twitter = require('twitter');
 var client = new Twitter({
-  consumer_key: "VQBS0hroJa0MrbQG0wSFoI0H1",
-  consumer_secret:"afCwcK5tqiciBtN4BSAzoJq5jP5a6Qdjq6X0TlVqtd1RPhlj3l" ,
-  bearer_token: "AAAAAAAAAAAAAAAAAAAAABYa%2BgAAAAAAn9TSgpmGlReIMAJQt%2FoCe8869rA%3De6YwxGMNSkhvfeZjpO9IrTmqZndizhOdNqWiGtwqF4hB9Y4VKP"
+  consumer_key: process.env.consumerKey,
+  consumer_secret:process.env.consumerSecret ,
+  bearer_token: process.env.bearer_token
 });
 
 
