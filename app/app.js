@@ -26,7 +26,9 @@ myApp.controller('mainController',  [ '$http', '$sce' ,'$q' ,function mainContro
   function getToken(){
     $http({
       method : 'POST',
-      url : 'https://cors-anywhere.herokuapp.com/https://api.twitter.com/oauth2/token?grant_type=client_credentials',
+      // url : 'https://cors-anywhere.herokuapp.com/https://api.twitter.com/oauth2/token?grant_type=client_credentials',
+      // url : 'https://api.twitter.com/oauth2/token?grant_type=client_credentials',
+      url : 'https://localhost:8080/getCred',
       headers : {
         'Content-type' : 'application/x-www-form-urlencoded;charset=UTF-8',
         'Authorization' : "Basic " + encodedString

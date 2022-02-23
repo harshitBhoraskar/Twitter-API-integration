@@ -12,31 +12,50 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header center">
-          <span class="heading"> TWEETS</span>
+          <span class="heading"> Login Page</span>
         </div>
         <ul class="nav navbar-nav">
         </ul>
       </div>
     </nav>
     <ul class="nav nav-tabs tabs">
-      <li class="active"><a data-toggle="tab" ng-click="mainCtrl.tabOne = true; mainCtrl.tabTwo = false;">Tweets</a></li>
-      <li><a data-toggle="tab" ng-click="mainCtrl.tabOne = false; mainCtrl.tabTwo = true; mainCtrl.fetchFollowers()">Followers</a></li>
+      <li class="active"><a data-toggle="tab" ng-click="mainCtrl.tabOne = true; mainCtrl.tabTwo = false;">Login</a></li>
+<!--      <li><a data-toggle="tab" ng-click="mainCtrl.tabOne = false; mainCtrl.tabTwo = true; mainCtrl.fetchFollowers()">Followers</a></li> -->
+
+
     </ul>
 
     <!-- Tweets  -->
     <div ng-if="mainCtrl.tabOne" class="tweet-body col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-xs-10 col-xs-offset-1" id="txt" ng-cloak>
-      <h3 class="text-center"> Tweets</h3>
+      <h3 class="text-center"> Login</h3>
       <hr>
-      <div class="tweet col-xs-12" ng-repeat ="tweet in mainCtrl.tweets">
+      <div class="tweet col-xs-12">
         <div class="logo pull-left col-xs-2">
-          <img class="logo tweet pull-left" src="/images/twitter-logo-final.png">
+          <!-- <img class="logo tweet pull-left" src="/images/twitter-logo-final.png"> -->
         </div>
-        <div class="pull-right tweet col-xs-10">
+        <!-- <div class="pull-right tweet col-xs-10">
           <label>{{tweet.user.name}}</label><span ng-if="tweet.user.verified"><img class="verified" src="/images/correct.png"></span>
           <span class="user-name">{{tweet.user.screen_name}}</span><br>
           <div ng-if="tweet.text" class="text">{{tweet.text}}</div>
           <div ng-if="tweet.user.url" class="text"><a href="{{tweet.user.url}}">{{tweet.user.url}}</a></div>
-          <span ng-if="tweet.entities.hashtags.length" ng-repeat="hashtag in tweet.entities.hashtags"><a>@{{hashtag.text}}</a></span>
+          <span ng-if="tweet.entities.hashtags.length" ng-repeat="hashtag in tweet.entities.hashtags"><a>@{{hashtag.text}}</a></span> -->
+          <div style="padding:10px">
+          <div class="col-xs-12" style="margin: 10px">
+            <span > User ID </span> <input style="margin-left: 48px" type="text"/><br>
+          </div >
+          <div class="col-xs-12" style="margin: 10px">
+            <span > Email address </span> <input style="margin-left: 10px" type="email"/><br>
+          </div >
+          <div class="col-xs-12" style="margin: 10px">
+            <span > Password </span> <input style="margin-left: 38px" type="password"/><br>
+          </div >
+          <div class="col-xs-12" style="margin: 10px">
+              <button  class="btn btn-primary">Login </button>
+          </div >
+
+
+        </div>
+
         <br>
         <br>
       </div>
